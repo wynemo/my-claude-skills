@@ -1,0 +1,12 @@
+# 运行时数据
+debug/
+file-history/
+history.jsonl
+ide/
+plans/
+plugins/
+projects/
+settings.json
+shell-snapshots/
+statsig/
+todos/
