@@ -12,3 +12,8 @@
 - `docker-deploy` - 创建 Docker 部署文件（Dockerfile、.dockerignore、build.sh）
 - `nextjs-frontend` - 创建 Next.js + shadcn/ui + Tailwind CSS 前端项目
 - `database-setup` - 为 FastAPI 项目添加 PostgreSQL + SQLModel 数据库支持
+
+
+## 使用技能例子
+
+- use database-setup skill
