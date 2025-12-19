@@ -11,3 +11,4 @@ shell-snapshots/
 statsig/
 todos/
 telemetry/
+stats-cache.json
