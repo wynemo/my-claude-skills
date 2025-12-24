@@ -23,7 +23,7 @@ uv init --name <project-name>
 ### 2. 添加常用依赖
 
 ```bash
-uv add "fastapi-toolbox>=0.6.1" "psycopg2-binary>=2.9.11" "pydantic-settings>=2.12.0" "requests>=2.32.5" "sqlmodel>=0.0.27"
+uv add "fastapi-toolbox>=0.6.4" "psycopg2-binary>=2.9.11" "pydantic-settings>=2.12.0" "requests>=2.32.5" "sqlmodel>=0.0.27"
 ```
 
 ### 3. 创建 main.py
