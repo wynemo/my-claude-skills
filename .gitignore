@@ -12,3 +12,4 @@ statsig/
 todos/
 telemetry/
 stats-cache.json
+.DS_Store
