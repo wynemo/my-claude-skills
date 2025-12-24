@@ -1,10 +1,16 @@
+---
+name: fastapi-init
+description: 使用 uv 初始化 Python FastAPI 项目，包含完整的项目结构和常用配置。
+allowed-tools:
+  - Bash
+  - Write
+  - Edit
+  - Read
+---
+
 # FastAPI 项目初始化 Skill
 
 使用 uv 初始化 Python FastAPI 项目，包含完整的项目结构和常用配置。
-
-## 使用场景
-
-当用户需要创建一个新的 FastAPI 项目时使用此 skill。
 
 ## 执行步骤
 
