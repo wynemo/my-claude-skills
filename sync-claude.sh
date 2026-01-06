@@ -28,8 +28,14 @@ for skill_dir in "$CLAUDE_SKILLS"/*/; do
         desc="运行此 skill"
     fi
 
-    # 生成 command 文件
-    echo "运行 /${skill_name} skill ${desc}" > "$command_file"
+    # 生成 command 文件（带 frontmatter）
+    cat > "$command_file" <<EOF
+---
+description: 运行 /${skill_name} skill ${desc}
+---
+
+运行 /${skill_name} skill ${desc}
+EOF
     echo "  -> skill-${skill_name}"
     ((skill_count++))
 done
