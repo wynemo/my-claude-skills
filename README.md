@@ -36,17 +36,28 @@ use docker-deploy skill
 
 ### sync-claude.sh
 
-将 Claude Code 的配置同步到 OpenCode。
+将 Claude Code 的配置同步到 OpenCode 和 Codex。
 
 **功能**：
 - 自动为每个 skill 生成对应的 command 文件（`skill-{name}.md`）
-- 创建符号链接，将 `~/.claude/commands` 链接到 `~/.config/opencode/command`
+- 同步 commands 和 skills 到 OpenCode 和 Codex
 - 自动创建目标目录（如果不存在）
 - 显示同步结果统计
+
+**同步目标**：
+| 来源 | OpenCode | Codex |
+|------|----------|-------|
+| Commands | 符号链接到 `~/.config/opencode/command` | 符号链接到 `~/.codex/prompts/` |
+| Skills | - | 符号链接到 `~/.codex/skills/` |
 
 **使用方法**：
 ```bash
 ./sync-claude.sh
 ```
 
-这样可以让 Claude Code 和 OpenCode 共享同一套命令配置，并且可以通过 `/skill-xxx` 快速调用技能。
+这样可以让 Claude Code、OpenCode 和 Codex 共享技能配置，并且可以通过 `/skill-xxx` 快速调用技能。
+
+**参考文档**：
+- [Codex Custom Prompts](https://developers.openai.com/codex/custom-prompts/)
+- [Codex Agent Skills](https://developers.openai.com/codex/skills/)
+- [Codex AGENTS.md 自定义指令](https://developers.openai.com/codex/guides/agents-md/)
