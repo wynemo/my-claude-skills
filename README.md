@@ -49,7 +49,7 @@ use docker-deploy skill
 | 来源 | OpenCode | Codex |
 |------|----------|-------|
 | Commands | 符号链接到 `~/.config/opencode/command` | - |
-| Skills | - | 复制到 `~/.codex/skills/` |
+| Skills | - | 符号链接到 `~/.codex/skills/` |
 
 **使用方法**：
 ```bash
