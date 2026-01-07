@@ -7,11 +7,12 @@ CLAUDE_SKILLS=~/.claude/skills
 OPENCODE_COMMAND=~/.config/opencode/command
 OPENCODE_AGENT=~/.config/opencode/agent
 CODEX_SKILLS=~/.codex/skills
+CODEX_PROMPTS=~/.codex/prompts
 
 # 确保源目录存在
 mkdir -p "$CLAUDE_COMMANDS" "$CLAUDE_SKILLS"
 # 确保目标父目录存在
-mkdir -p "$(dirname "$OPENCODE_COMMAND")" "$(dirname "$CODEX_SKILLS")"
+mkdir -p "$(dirname "$OPENCODE_COMMAND")" "$(dirname "$CODEX_SKILLS")" "$(dirname "$CODEX_PROMPTS")"
 
 # Step 1: 为所有 skills 生成 skill-xx commands
 echo "生成 skill commands..."
@@ -61,7 +62,16 @@ echo "同步 skills 到 Codex..."
 ln -sf "$CLAUDE_SKILLS" "$CODEX_SKILLS"
 echo "  -> 已链接 $CLAUDE_SKILLS -> $CODEX_SKILLS"
 
+# Step 4: 同步 commands 到 Codex prompts (直接链接整个目录)
+# Codex 使用 ~/.codex/prompts 目录存放自定义提示
+# 格式与 Claude Code commands 兼容（都使用 description frontmatter）
+echo ""
+echo "同步 commands 到 Codex prompts..."
+[ -e "$CODEX_PROMPTS" ] || [ -L "$CODEX_PROMPTS" ] && rm -rf "$CODEX_PROMPTS"
+ln -sf "$CLAUDE_COMMANDS" "$CODEX_PROMPTS"
+echo "  -> 已链接 $CLAUDE_COMMANDS -> $CODEX_PROMPTS"
+
 echo ""
 echo "完成！"
-echo "Commands: $(ls -1 "$OPENCODE_COMMAND"/*.md 2>/dev/null | wc -l | tr -d ' ') 个"
-echo "Skills: $(ls -1d "$CLAUDE_SKILLS"/*/ 2>/dev/null | wc -l | tr -d ' ') 个 (已同步到 OpenCode 和 Codex)"
+echo "Commands: $(ls -1 "$CLAUDE_COMMANDS"/*.md 2>/dev/null | wc -l | tr -d ' ') 个 (已同步到 OpenCode 和 Codex)"
+echo "Skills: $(ls -1d "$CLAUDE_SKILLS"/*/ 2>/dev/null | wc -l | tr -d ' ') 个 (已同步到 Codex)"
