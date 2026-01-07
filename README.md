@@ -1,22 +1,24 @@
-# Claude Code 配置
+# Claude Code Configuration
 
-我的 Claude Code 自定义命令和技能配置。
+中文版本: [README.zh.md](README.zh.md)
 
-## 命令 (Commands)
+My Claude Code custom commands and skills configuration.
 
-- `/catchup` - 读取当前 git 分支中所有变更的文件
-- `/git-commit` - 分析 git 改动并自动创建提交
-- `/daily-summary` - 生成今日工作总结
+## Commands
 
-## 技能 (Skills)
+- `/catchup` - Read all changed files in the current git branch
+- `/git-commit` - Analyze git changes and automatically create a commit
+- `/daily-summary` - Generate today’s work summary
 
-- `fastapi-init` - 使用 uv 初始化 Python FastAPI 项目
-- `database-setup` - 为 FastAPI 项目添加 PostgreSQL + SQLModel 数据库支持
-- `docker-deploy` - 创建 Docker 部署文件（Dockerfile、.dockerignore、build.sh）
-- `nextjs-frontend` - 创建 Next.js + shadcn/ui + Tailwind CSS 前端项目（pnpm）
-- `bun-nextjs` - 使用 Bun 创建 Next.js + shadcn/ui + Tailwind CSS 前端项目
+## Skills
 
-## 使用技能
+- `fastapi-init` - Initialize a Python FastAPI project with uv
+- `database-setup` - Add PostgreSQL + SQLModel database support to a FastAPI project
+- `docker-deploy` - Create Docker deployment files (Dockerfile, .dockerignore, build.sh)
+- `nextjs-frontend` - Create a Next.js + shadcn/ui + Tailwind CSS frontend project (pnpm)
+- `bun-nextjs` - Create a Next.js + shadcn/ui + Tailwind CSS frontend project with Bun
+
+## Using Skills
 
 ```
 use fastapi-init skill
@@ -24,7 +26,7 @@ use database-setup skill
 use docker-deploy skill
 ```
 
-或者使用自动生成的 skill commands：
+Or use the auto-generated skill commands:
 
 ```
 /skill-fastapi-init
@@ -32,32 +34,32 @@ use docker-deploy skill
 /skill-docker-deploy
 ```
 
-## 工具脚本
+## Tool Scripts
 
 ### sync-claude.sh
 
-将 Claude Code 的配置同步到 OpenCode 和 Codex。
+Sync Claude Code configuration to OpenCode and Codex.
 
-**功能**：
-- 自动为每个 skill 生成对应的 command 文件（`skill-{name}.md`）
-- 同步 commands 和 skills 到 OpenCode 和 Codex
-- 自动创建目标目录（如果不存在）
-- 显示同步结果统计
+**Features**:
+- Generate a command file for each skill (`skill-{name}.md`)
+- Sync commands and skills to OpenCode and Codex
+- Create target directories automatically if missing
+- Show sync result statistics
 
-**同步目标**：
-| 来源 | OpenCode | Codex |
-|------|----------|-------|
-| Commands | 符号链接到 `~/.config/opencode/command` | 符号链接到 `~/.codex/prompts/` |
-| Skills | - | 符号链接到 `~/.codex/skills/` |
+**Sync targets**:
+| Source | OpenCode | Codex |
+|--------|----------|-------|
+| Commands | Symlink to `~/.config/opencode/command` | Symlink to `~/.codex/prompts/` |
+| Skills | - | Symlink to `~/.codex/skills/` |
 
-**使用方法**：
+**Usage**:
 ```bash
 ./sync-claude.sh
 ```
 
-这样可以让 Claude Code、OpenCode 和 Codex 共享技能配置，并且可以通过 `/skill-xxx` 快速调用技能。
+This lets Claude Code, OpenCode, and Codex share skills configuration, and enables quick access via `/skill-xxx`.
 
-**参考文档**：
+**References**:
 - [Codex Custom Prompts](https://developers.openai.com/codex/custom-prompts/)
 - [Codex Agent Skills](https://developers.openai.com/codex/skills/)
-- [Codex AGENTS.md 自定义指令](https://developers.openai.com/codex/guides/agents-md/)
+- [Codex AGENTS.md Custom Instructions](https://developers.openai.com/codex/guides/agents-md/)
