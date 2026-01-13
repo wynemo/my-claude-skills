@@ -80,7 +80,9 @@ ls -la "xwechat_files/{wxid}/msg/video"
 
 ## 目录位置
 
-微信插件目录：`C:\Users\{用户名}\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins`
+微信插件目录（需要清理两个位置）：
+1. `C:\Users\{用户名}\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins`
+2. `C:\Users\{用户名}\AppData\Roaming\Tencent\xwechat\xplugin\Plugins`
 
 ## 版本管理模式
 
@@ -125,31 +127,44 @@ Plugins/
 ## 执行逻辑
 
 ```bash
-# 进入插件目录
-cd "C:\Users\{用户名}\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins"
+# 定义两个插件目录
+plugin_dirs=(
+    "C:\Users\{用户名}\AppData\Roaming\Tencent\WeChat\XPlugin\Plugins"
+    "C:\Users\{用户名}\AppData\Roaming\Tencent\xwechat\xplugin\Plugins"
+)
 
-# 对每个插件目录
-for plugin in */; do
-    cd "$plugin"
-    
-    # 获取所有版本号（纯数字目录）
-    versions=$(ls -d [0-9]* 2>/dev/null | sort -n)
-    
-    # 如果有多个版本
-    if [ $(echo "$versions" | wc -l) -gt 1 ]; then
-        # 保留最新版本（最后一个）
-        keep_version=$(echo "$versions" | tail -1)
-        
-        # 删除其他旧版本
-        for ver in $versions; do
-            if [ "$ver" != "$keep_version" ]; then
-                echo "删除 $plugin$ver"
-                rm -rf "$ver"
+# 遍历两个目录
+for plugin_root in "${plugin_dirs[@]}"; do
+    if [ -d "$plugin_root" ]; then
+        echo "清理目录: $plugin_root"
+        cd "$plugin_root"
+
+        # 对每个插件目录
+        for plugin in */; do
+            cd "$plugin"
+
+            # 获取所有版本号（纯数字目录）
+            versions=$(ls -d [0-9]* 2>/dev/null | sort -n)
+
+            # 如果有多个版本
+            if [ $(echo "$versions" | wc -l) -gt 1 ]; then
+                # 保留最新版本（最后一个）
+                keep_version=$(echo "$versions" | tail -1)
+
+                # 删除其他旧版本
+                for ver in $versions; do
+                    if [ "$ver" != "$keep_version" ]; then
+                        echo "删除 $plugin$ver"
+                        rm -rf "$ver"
+                    fi
+                done
             fi
+
+            cd ..
         done
+    else
+        echo "目录不存在，跳过: $plugin_root"
     fi
-    
-    cd ..
 done
 ```
 
