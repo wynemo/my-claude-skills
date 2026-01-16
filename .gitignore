@@ -14,4 +14,7 @@ telemetry/
 stats-cache.json
 .DS_Store
 skills/.system/
+skills/skill-creator/
 transcripts/
+cache/
+paste-cache/
