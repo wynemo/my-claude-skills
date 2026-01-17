@@ -17,10 +17,16 @@ ffmpeg -ss <timestamp> -i <input_video> -frames:v 1 -q:v 2 <output.jpg>
 - `-frames:v 1`: Extract single frame
 - `-q:v 2`: High quality (1-31, lower is better)
 
-## Add Text Overlay
+## Chinese Font Support (macOS)
+
+For Chinese text, use these fonts:
+- Bold: `/System/Library/Fonts/STHeiti Medium.ttc`
+- Regular: `/System/Library/Fonts/Hiragino Sans GB.ttc`
+
+## Add Text Overlay (Single Line)
 
 ```bash
-ffmpeg -i <input_image> -vf "drawtext=text='<text>':fontsize=<size>:fontcolor=<color>:x=<x>:y=<y>" <output.jpg>
+ffmpeg -i <input_image> -vf "drawtext=text='<text>':fontfile=/System/Library/Fonts/STHeiti\ Medium.ttc:fontsize=140:fontcolor=black:x=(w-text_w)/2:y=(h-text_h)/2" <output.jpg>
 ```
 
 Common positions:
@@ -29,19 +35,38 @@ Common positions:
 - Top left: `x=20:y=20`
 
 Options:
-- `fontfile=/path/to/font.ttf`: Custom font
-- `fontcolor=white`: Text color (name or hex `0xFFFFFF`)
-- `fontsize=48`: Font size in pixels
-- `borderw=2:bordercolor=black`: Text outline
+- `fontfile=/path/to/font.ttf`: Custom font (escape spaces with `\ `)
+- `fontcolor=black` or `fontcolor=white`: Text color
+- `fontsize=140`: Font size in pixels (100-150 recommended for titles)
+- `borderw=2:bordercolor=black`: Text outline for bolder appearance
 
-## Combined: Extract Frame + Add Text
+## Multi-line Text (Chain drawtext filters)
+
+For long text, split into multiple lines using chained drawtext filters:
 
 ```bash
-ffmpeg -ss <timestamp> -i <input_video> -frames:v 1 -vf "drawtext=text='<text>':fontsize=48:fontcolor=white:borderw=2:bordercolor=black:x=(w-text_w)/2:y=h-th-40" -q:v 2 <output.jpg>
+ffmpeg -ss <timestamp> -i <input_video> -frames:v 1 -vf "\
+drawtext=text='Line 1':fontfile=/System/Library/Fonts/STHeiti\ Medium.ttc:fontsize=140:fontcolor=black:borderw=2:bordercolor=black:x=(w-text_w)/2:y=(h/2)-210,\
+drawtext=text='Line 2':fontfile=/System/Library/Fonts/STHeiti\ Medium.ttc:fontsize=140:fontcolor=black:borderw=2:bordercolor=black:x=(w-text_w)/2:y=(h/2)-35,\
+drawtext=text='Line 3':fontfile=/System/Library/Fonts/STHeiti\ Medium.ttc:fontsize=140:fontcolor=black:borderw=2:bordercolor=black:x=(w-text_w)/2:y=(h/2)+140" \
+-q:v 2 <output.jpg> -y
+```
+
+Vertical spacing guide (for fontsize=140):
+- 3 lines centered: y=(h/2)-210, y=(h/2)-35, y=(h/2)+140
+- Adjust spacing (~175px between lines) based on font size
+
+## Combined: Extract Frame + Add Text (Simple)
+
+```bash
+ffmpeg -ss <timestamp> -i <input_video> -frames:v 1 -vf "drawtext=text='<text>':fontfile=/System/Library/Fonts/STHeiti\ Medium.ttc:fontsize=140:fontcolor=black:borderw=2:bordercolor=black:x=(w-text_w)/2:y=(h-text_h)/2" -q:v 2 <output.jpg> -y
 ```
 
 ## Notes
 
 - Escape special characters in text: use `\:` for colon, `\\` for backslash
+- Escape spaces in font paths with `\ `
 - For text with spaces, wrap in single quotes
+- Use `-y` flag to overwrite existing output file
 - Supported output formats: jpg, png, bmp, webp
+- For bolder text: use STHeiti Medium + borderw with same color as fontcolor
