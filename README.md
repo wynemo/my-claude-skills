@@ -17,6 +17,9 @@ My Claude Code custom commands and skills configuration.
 - `docker-deploy` - Create Docker deployment files (Dockerfile, .dockerignore, build.sh)
 - `nextjs-frontend` - Create a Next.js + shadcn/ui + Tailwind CSS frontend project (pnpm)
 - `bun-nextjs` - Create a Next.js + shadcn/ui + Tailwind CSS frontend project with Bun
+- `clean-wechat-msg` - Clean up old WeChat export files and plugin versions (Windows)
+- `repo-explorer` - Clone a git repo to temp directory and explore/search to answer questions
+- `video-frame-text` - Extract a frame from video and add text overlay using ffmpeg
 
 ## Using Skills
 
