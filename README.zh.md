@@ -17,6 +17,9 @@ English version: [README.md](README.md)
 - `docker-deploy` - 创建 Docker 部署文件（Dockerfile、.dockerignore、build.sh）
 - `nextjs-frontend` - 创建 Next.js + shadcn/ui + Tailwind CSS 前端项目（pnpm）
 - `bun-nextjs` - 使用 Bun 创建 Next.js + shadcn/ui + Tailwind CSS 前端项目
+- `clean-wechat-msg` - 清理微信导出数据旧文件和插件旧版本（Windows）
+- `repo-explorer` - 克隆 git 仓库到临时目录，搜索代码回答问题
+- `video-frame-text` - 使用 ffmpeg 从视频提取帧并添加文字叠加
 
 ## 使用技能
 
