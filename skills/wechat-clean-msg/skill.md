@@ -1,5 +1,5 @@
 ---
-name: clean-wechat-msg
+name: wechat-clean-msg
 description: This skill should be used when the user asks to "clean wechat messages", "delete old wechat files", "清理微信消息", "删除微信旧文件", or discusses wechat data cleanup in xwechat_files directory.
 version: 1.0.0
 platform: windows
