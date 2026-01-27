@@ -56,7 +56,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origin_regex=r".*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -68,7 +68,7 @@ async def hello_world():
     return {"message": "Hello World"}
 
 
-# uv run uvicorn main:app 开发模式
+# uv run main.py --reload 开发模式
 # uv run main.py --workers 2 部署模式
 if __name__ == "__main__":
     # 创建命令行参数解析器
@@ -79,11 +79,14 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8080, help="Port number")
     # 添加 host 参数，默认 host 为 0.0.0.0
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Host address")
+    # 添加 reload 参数，默认为 False
+    parser.add_argument("--reload", action="store_true", help="Enable auto-reload")
     # 解析命令行参数
     args = parser.parse_args()
     workers = args.workers
     port = args.port
     host = args.host
+    reload = args.reload
 
 
     def filter_logs(record):
@@ -98,6 +101,7 @@ if __name__ == "__main__":
         host=host,
         port=port,
         workers=workers,
+        reload=reload,
         log_file="logs/app.log", # 日志轮转
         filter_callbacks=[filter_logs]
     )
@@ -105,7 +109,7 @@ if __name__ == "__main__":
 
 ## 运行方式
 
-- **开发模式**: `uv run uvicorn main:app --reload`
+- **开发模式**: `uv run main.py --reload`
 - **部署模式**: `uv run main.py --workers 2`
 
 ## 注意事项
