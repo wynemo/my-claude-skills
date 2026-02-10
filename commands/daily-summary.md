@@ -2,6 +2,8 @@
 description: 生成今日工作总结（9:00 - 18:00 工作时间内的提交记录）
 ---
 
+> **数据来源**：全局 git post-commit 钩子 `~/.git-hooks/post-commit`（通过 `core.hooksPath` 全局生效）。每次 `git commit` 后自动采集 commit hash、提交消息、时间、作者、项目路径及文件变更统计，追加写入 `~/logs/YYYY-MM-DD/commits.txt`。
+
 1. **读取今日提交记录**：
    - 读取文件 `~/logs/$(date +%Y-%m-%d)/commits.txt`
    - 如果文件不存在，提示用户今天没有提交记录
