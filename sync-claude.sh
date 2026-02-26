@@ -14,39 +14,7 @@ mkdir -p "$CLAUDE_COMMANDS" "$CLAUDE_SKILLS"
 # 确保目标父目录存在
 mkdir -p "$(dirname "$OPENCODE_COMMAND")" "$(dirname "$CODEX_SKILLS")" "$(dirname "$CODEX_PROMPTS")"
 
-# Step 1: 为所有 skills 生成 skill-xx commands
-echo "生成 skill commands..."
-skill_count=0
-for skill_dir in "$CLAUDE_SKILLS"/*/; do
-    [ -d "$skill_dir" ] || continue
-
-    skill_name=$(basename "$skill_dir")
-    command_file="$CLAUDE_COMMANDS/skill-${skill_name}.md"
-
-    # 从 skill 的 md 文件中提取 description
-    skill_md=$(find "$skill_dir" -maxdepth 1 -name "*.md" | head -1)
-    if [ -f "$skill_md" ]; then
-        desc=$(grep "^description:" "$skill_md" | head -1 | sed 's/^description:[[:space:]]*//' | tr -d '"')
-        [ -z "$desc" ] && desc="运行此 skill"
-    else
-        desc="运行此 skill"
-    fi
-
-    # 生成 command 文件（带 frontmatter）
-    cat > "$command_file" <<EOF
----
-description: 运行 /${skill_name} skill ${desc}
----
-
-运行 /${skill_name} skill ${desc}
-EOF
-    echo "  -> skill-${skill_name}"
-    ((skill_count++))
-done
-echo "生成了 ${skill_count} 个 skill commands"
-echo ""
-
-# Step 2: 同步 commands 到 OpenCode (格式兼容，直接链接)
+# Step 1: 同步 commands 到 OpenCode (格式兼容，直接链接)
 echo "同步 commands 到 OpenCode..."
 # 如果目标已存在（可能是目录或符号链接），先删除
 [ -e "$OPENCODE_COMMAND" ] || [ -L "$OPENCODE_COMMAND" ] && rm -rf "$OPENCODE_COMMAND"
