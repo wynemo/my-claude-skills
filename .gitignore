@@ -19,3 +19,11 @@ transcripts/
 cache/
 paste-cache/
 tasks/
+
+# Private skills
+skills/create-pr/
+skills/my-prs/
+skills/my-worktree/
+skills/opened-pr/
+skills/pr-daily-report/
+skills/review-pr/
