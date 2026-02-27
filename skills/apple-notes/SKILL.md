@@ -53,6 +53,7 @@ end tell
 ## 创建笔记
 
 ### 在默认文件夹创建笔记
+默认文件夹为 **"Notes"**，未指定文件夹时一律保存到此处。
 ```bash
 osascript -e '
 tell application "Notes"
