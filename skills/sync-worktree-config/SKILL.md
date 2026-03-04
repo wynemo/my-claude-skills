@@ -24,7 +24,7 @@ echo "Worktree:  $CURRENT"
 
 2. **Copy config files**
 ```bash
-for f in .env; do
+for f in .env .env.local; do
     if [ -f "$MAIN_REPO/$f" ]; then
         cp "$MAIN_REPO/$f" "$f"
         echo "✓ $f"
