@@ -41,4 +41,14 @@ else
     echo "No pyproject.toml or package.json found, skipping install"
 fi
 
+# Copy and run build_canvas.sh if exists
+if [ -f "$MAIN_REPO/build_canvas.sh" ]; then
+    cp "$MAIN_REPO/build_canvas.sh" "build_canvas.sh"
+    echo "Copied build_canvas.sh"
+    echo "Running build_canvas.sh..."
+    bash build_canvas.sh
+else
+    echo "Skip build_canvas.sh (not found in main repo)"
+fi
+
 echo "Done"
