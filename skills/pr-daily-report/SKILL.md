@@ -14,34 +14,45 @@ Generate a daily work report based on today's PRs.
 ## Output Format
 
 ```
-**Daily Report**
+Daily Report
+Date: <YYYY/MM/DD>
+Name: <name provided by user, default: run `gh api user --jq '.name'`>
+Team / Project: <team or project info provided by user, default: infer from PR context>
+Role: <role provided by user, default: run `gh api user --jq '.bio'`>
 
-**Date:** <YYYY-MM-DD>
-**Name:** <name provided by user, default: run `gh api user --jq '.name'` to get the current user's name>
-**Role:** <role provided by user, default: run `gh api user --jq '.bio'` and extract the role>
+🟢 1. Today's Progress
+<Group related PRs by feature/topic>
+🔹 <Feature/Topic Title>
+• <What was done, concise bullet point>
+<PR URL>
+• <What was done>
+<PR URL>
 
----
+🔹 <Feature/Topic Title>
+• <What was done>
+<PR URL>
 
-**Summary**
+🟡 2. In Progress
+<What is currently being worked on but not yet completed, infer from open/draft PRs or ask user>
 
-<1-2 sentences summarizing the day: what areas were worked on, how many PRs, across which repos>
+🔴 3. Blockers / Issues
+<Any blockers or issues encountered, ask user if not obvious>
 
-**Work Completed**
+🔵 4. Tomorrow's Plan
+<Planned work for tomorrow, ask user if not obvious>
 
-1. **<Feature/Topic Title>**
-   - <What was done, concise bullet points>
-   - PRs: [repo#number](url), [repo#number](url)
-
-2. **<Feature/Topic Title>**
-   - <What was done>
-   - PR: [repo#number](url)
+🧠 5. Notes
+<Any additional notes or observations>
 ```
 
 ## Rules
 
 - Use English
+- Keep it short and concise, no long texts
 - Group related frontend+backend PRs together under one topic
 - Include both open and closed PRs, no need to show status
-- PR links use format `[repo#number](url)`
-- Keep bullet points concise
-- If user provides name/role, use those; otherwise use defaults
+- PR links as plain URLs on their own line under the bullet point
+- Keep bullet points concise, one line each
+- Use emoji section headers exactly as shown (🟢 🔹 🟡 🔴 🔵 🧠)
+- If user provides name/role/team, use those; otherwise use defaults
+- Sections 2-5: if user doesn't provide info, make reasonable inferences from PR context or ask
